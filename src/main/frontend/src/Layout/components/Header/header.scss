@@ -1,0 +1,30 @@
+.header {
+  overflow: auto;
+  background-color: whitesmoke;
+  padding-left: 2rem;
+  border-bottom: solid 4px gray;
+  box-shadow: 0 15px 10px -15px gray;
+}
+.header-heading {
+  display: inline;
+  float: left;
+  text-decoration: none;
+  color: gray;
+  font-weight: bold;
+}
+
+.primary-navigation {
+  display: inline;
+  float: right;
+  text-align: right;
+  margin-top: 1.75rem;
+}
+.primary-navigation-item {
+  text-decoration: none;
+  color: black;
+  margin-right: 2rem;
+}
+
+.primary-navigation-item-active {
+  font-weight: bold;
+}

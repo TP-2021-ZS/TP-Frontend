@@ -1,0 +1,22 @@
+.login-page {
+  padding: 60px 0;
+  align-items: center;
+
+  .form-header {
+    color: dimgray;
+    font-weight: bold;
+  }
+
+  form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+
+  button {
+    margin: 1rem 0 1rem 0;
+  }
+
+  .form-group-section {
+    margin-top: 5px;
+  }
+}
