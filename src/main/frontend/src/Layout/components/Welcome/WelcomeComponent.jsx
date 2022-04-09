@@ -36,7 +36,7 @@ export default function WelcomeComponet() {
                     <Typography variant="body1"
                                 color="textBasic.main"
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Aplikácia poskytuje získavanie a využitie informácií z verejne dostupných zdrojov. Poskytuje systém, ktorý vyhľadáva ohlásené investičné projekty, rozširovanie výroby, budovanie nových priemyselných a rezidenčných priestorov, akvizície spoločností a mnohé iné príležitosti. Tým uľahčí prácu, primárne tímov projektového financovania v spoločnosti VÚB. Softvér nahrádza manuálnu prácu pri vyhľadávaní obchodných príležitostí v online prostredí a získané dáta automaticky spracuje do pravidelného reportu, ktorý je odosielaný vo formáte CSV na e-mailové adresy poverených osôb.
                     </Typography>
                     <Box
                         sx={{
@@ -48,7 +48,7 @@ export default function WelcomeComponet() {
                         <Typography variant="body1"
                                     color="textLight.main"
                         >
-                            Lorem ipsum dolo.
+                            Stante sa administrátorom projektov pre vyhľadávanie investičných príležitostí.
                         </Typography>
                     </Box>
                     <Box
@@ -65,7 +65,7 @@ export default function WelcomeComponet() {
 
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}>
-                            Get Started
+                            Poďme na to
                         </Button>
                     </Box>
                 </Box>

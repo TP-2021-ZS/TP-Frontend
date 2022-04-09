@@ -141,7 +141,7 @@ const LoginPage = () => {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                SIGN IN
+                PRIHLÁSENIE
               </Typography>
 
 
@@ -163,7 +163,7 @@ const LoginPage = () => {
                     required
                     fullWidth
                     id="username"
-                    label="Username"
+                    label="Používateľské meno"
                     name="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -175,7 +175,7 @@ const LoginPage = () => {
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    label="Heslo"
                     type="password"
                     id="password"
                     value={password}
@@ -191,18 +191,18 @@ const LoginPage = () => {
                     disabled={!validateForm()}
 
                 >
-                  Sign In
+                  PRIHLÁSIŤ SA
                 </Button>
 
 
                 <Grid container>
                   <Grid item>
                     <Link href="/registration" variant="body2">
-                      {"Don't have an account? Sign Up"}
+                      {"Nemáte ešte účet? Registrujte sa"}
                     </Link>
                   </Grid>
                 </Grid>
-                <Copyright sx={{ mt: 5 }} />
+                {/*<Copyright sx={{ mt: 5 }} />*/}
               </Box>
             </Box>
           </Grid>

@@ -90,7 +90,7 @@ const RegistrationPage = () => {
             navigate(routes.login)
           })
           .catch(() => {
-            setError("Niekde nastala chyba, skúste to znova :(");
+            setError("Niekde nastala chyba, skúste to znova neskôr.");
           });
     }else{
       setError('');
@@ -147,7 +147,7 @@ const RegistrationPage = () => {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                SIGN UP
+                REGISTRÁCIA
               </Typography>
 
 
@@ -169,7 +169,7 @@ const RegistrationPage = () => {
                     required
                     fullWidth
                     id="username"
-                    label="Username"
+                    label="Používateľské meno"
                     name="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -192,7 +192,7 @@ const RegistrationPage = () => {
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    label="Heslo"
                     type="password"
                     id="password"
                     value={password}
@@ -208,18 +208,18 @@ const RegistrationPage = () => {
                     disabled={!validateForm()}
 
                 >
-                  Sign up
+                  REGISTROVAŤ SA
                 </Button>
 
 
                 <Grid container>
                   <Grid item>
                     <Link href="/login" variant="body2">
-                      {"Already have an account? Sign In"}
+                      {"Už máte vytvorený účet? Prihláste sa"}
                     </Link>
                   </Grid>
                 </Grid>
-                <Copyright sx={{ mt: 5 }} />
+                {/*<Copyright sx={{ mt: 5 }} />*/}
               </Box>
             </Box>
           </Grid>
