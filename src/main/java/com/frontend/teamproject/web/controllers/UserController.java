@@ -1,6 +1,7 @@
 package com.frontend.teamproject.web.controllers;
 
 import com.frontend.teamproject.auth.UserDetailServiceImpl;
+import com.frontend.teamproject.domain.classes.ValidResponse;
 import com.frontend.teamproject.domain.dto.UserDto;
 import java.security.Principal;
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
   private final UserDetailServiceImpl userService;
@@ -26,7 +28,7 @@ public class UserController {
     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
   }
 
-  @PostMapping(value = "/api/registration")
+  @PostMapping(value = "/registration")
   public void addUser(@Valid UserDto userDto,
       BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
@@ -36,17 +38,17 @@ public class UserController {
     userService.registerUser(userDto.getUsername(), hashedPassword, userDto.getEmail());
   }
 
-  @GetMapping(value = "/api/test", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/test")
   public ResponseEntity<?> getTest(){
-    return ResponseEntity.status(HttpStatus.OK).body("ok");
+    return ResponseEntity.status(HttpStatus.OK).body(new ValidResponse("test - user controller"));
   }
 
-  @GetMapping("/api/user")
+  @GetMapping("/user")
   public ResponseEntity<UserDto> getUser(Principal principal) {
     return userService.getUser(principal.getName());
   }
 
-  @PutMapping("/api/user")
+  @PutMapping("/user")
   public ResponseEntity<UserDto> edit(@RequestParam(value = "username", required = false) String username,
       @RequestParam(value = "email", required = false) String email,
       @RequestParam(value = "password", required = false) String password,

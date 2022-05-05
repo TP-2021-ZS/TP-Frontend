@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable().cors()
         .and()
         //nech sa token vytvara iba na adrese api/login
-        .addFilterBefore(new LoginFilter("**/api/login", authenticationManager()),
+        .addFilterBefore(new LoginFilter("/api/login", authenticationManager()),
             UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

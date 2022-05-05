@@ -30,8 +30,8 @@ public class RedirectToIndexFilter implements Filter {
       chain.doFilter(request, response);
       return;
     }
-
-    forwardRequest(request, response, getRequestDispatcher(request));
+    chain.doFilter(request, response);
+//    forwardRequest(request, response, getRequestDispatcher(request));
   }
 
   private void forwardRequest(final ServletRequest request, final ServletResponse response,
