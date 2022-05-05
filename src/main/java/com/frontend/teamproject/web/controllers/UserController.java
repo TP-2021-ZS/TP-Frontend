@@ -5,14 +5,13 @@ import com.frontend.teamproject.domain.dto.UserDto;
 import java.security.Principal;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -35,6 +34,11 @@ public class UserController {
     }
     String hashedPassword = bCryptPasswordEncoder.encode(userDto.getPassword());
     userService.registerUser(userDto.getUsername(), hashedPassword, userDto.getEmail());
+  }
+
+  @GetMapping(value = "/api/test", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> getTest(){
+    return ResponseEntity.status(HttpStatus.OK).body("ok");
   }
 
   @GetMapping("/api/user")
