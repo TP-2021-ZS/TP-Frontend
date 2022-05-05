@@ -21,8 +21,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
-  @Resource(name = "UserService")
-  private  UserDetailsService userDetailsService;
+//  @Resource(name = "UserService")
+  @Autowired
+  private  UserDetailServiceImpl userDetailsService;
   @Autowired
   private  TokenProvider tokenProvider;
 
