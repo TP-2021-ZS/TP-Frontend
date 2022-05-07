@@ -303,6 +303,9 @@ function AllProjectsContent() {
                                     >
                                         Projekty
                                     </Typography>
+                                    <IconButton className={classes.customHoverFocus} component={Link} to="/help" color="inherit">
+                                        <HelpOutlineIcon />
+                                    </IconButton>
                                     <IconButton onClick={logout} color="inherit">
                                         <ExitToAppIcon />
                                     </IconButton>

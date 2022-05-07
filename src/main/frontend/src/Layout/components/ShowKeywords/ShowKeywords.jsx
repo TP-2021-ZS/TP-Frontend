@@ -41,6 +41,22 @@ function renderItem({ item, handleRemove }) {
 export default function ShowKeywords({ project, setProject }) {
   const [word, setWord] = useState("");
   const [errDictionaryW, setErrDictionaryW] = useState('');
+  const [defaultList, setDefaultList] = useState([
+    "investícia",
+    "projekt",
+    "expanzia",
+    ]);
+
+  const loadDictionary = () => {
+    if(!project.keywords) {
+      project.keywords = [];
+    }
+    const mergedList = project.keywords.concat(defaultList);
+    setProject(prevProject => ({
+      ...prevProject,
+      keywords: mergedList
+    }));
+  }
 
   const handleRemove = (item) => {
     const updatedKeywords = project.keywords.filter((i) => i !== item);
@@ -90,11 +106,9 @@ export default function ShowKeywords({ project, setProject }) {
                 color="buttonLight"
                 variant="contained"
                 sx={{ ml: 2, mr: 2 }}
-                onClick={() => {
-                  alert('Tu budú predvolené stránky');
-                }}
+                onClick={loadDictionary}
             >
-              Pridaj predvolený slovník
+              Pridaj predvolené slová
             </Button>
           </Grid>
         </Grid>

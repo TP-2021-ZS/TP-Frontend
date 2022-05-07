@@ -35,6 +35,37 @@ function renderItem({item, handleRemove}) {
 export default function ShowWebsites({project, setProject}) {
   const [website, setWebsite] = useState("");
   const [errWebsites, setErrWebsites] = useState('');
+  const [defaultList, setDefaultList] = useState([
+    "https://www.mpsr.sk/",
+    "https://www.energie-portal.sk/",
+    "https://www.voda-portal.sk/",
+    "https://www.odpady-portal.sk/",
+    "https://www.priemyseldnes.sk/",
+    "https://camit.sk/sk",
+    "https://www.fsok.sk/",
+    "https://www.enviroportal.sk/sk/eia",
+    "https://www.asb.sk/",
+    "https://www.eea.europa.eu/sk/themes/human/highlights",
+    "https://www.inovujme.sk/sk/novinky",
+    "https://www.siea.sk/",
+    "https://www.npc.sk/",
+    "https://news.camit.sk/sk/",
+    "https://www.stavebne-forum.sk/sk/newsroom/",
+    "https://www.webnoviny.sk/",
+    "https://www.finreport.sk/"]);
+
+  const loadDictionary = () => {
+      //let mergedList = props.addedWebsites.concat(defaultList);
+      if(!project.webpages) {
+          project.webpages = [];
+      }
+      const mergedList = project.webpages.concat(defaultList);
+      console.log(mergedList)
+      setProject(prevProject => ({
+          ...prevProject,
+          webpages: mergedList
+      }));
+  }
 
   const handleRemove = (item) => {
     const updatedWebpages = project.webpages.filter((i) => i !== item);
@@ -71,6 +102,11 @@ export default function ShowWebsites({project, setProject}) {
 
   return (
       <div>
+          <Box
+              component="form"
+              onSubmit={loadDictionary}
+          >
+          </Box>
         <Grid container spacing={3}>
           <Grid item md={4} xs={12}>
             <Typography variant="h6"
@@ -80,28 +116,16 @@ export default function ShowWebsites({project, setProject}) {
           </Grid>
 
           <Grid item md={8} xs={12}>
-            <Button
-                type="button"
-                color="buttonLight"
-                variant="contained"
-                sx={{ml: 2, mr: 2}}
-                onClick={() => {
-                  alert('Tu budú predvolené stránky');
-                }}
-            >
-              Pridaj predvolené stránky
-            </Button>
-            <Button
-                type="button"
-                color="buttonLight"
-                variant="contained"
-                sx={{ml: 2, mr: 2}}
-                onClick={() => {
-                  alert('Tu bude upload');
-                }}
-            >
-              Načítaj súbor
-            </Button>
+              <Button
+                  type="button"
+                  color="buttonLight"
+                  variant="contained"
+                  sx={{ ml: 2, mr: 2 }}
+                  onClick={loadDictionary}
+              >
+                  Pridaj predvolené stránky
+              </Button>
+
           </Grid>
         </Grid>
 

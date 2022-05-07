@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-
+import obr from './mainimg.png'
 
 export default function WelcomeComponet() {
     return (
@@ -76,7 +76,7 @@ export default function WelcomeComponet() {
                 sm={4}
                 md={7}
                 sx={{
-                    backgroundImage: 'url(https://img.freepik.com/free-vector/email-business-illustration-newsletter-email-marketing-concept-vector-illustration-flat-style_7737-2326.jpg)',
+                    backgroundImage: `url(${obr})`,
                     backgroundRepeat: 'no-repeat',
                     //backgroundColor: (t) =>
                     //    t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

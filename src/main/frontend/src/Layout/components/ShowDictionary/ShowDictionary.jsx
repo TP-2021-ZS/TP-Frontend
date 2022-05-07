@@ -47,6 +47,71 @@ export default function ShowDictionary({ project, setProject }) {
   const [errDictionaryW, setErrDictionaryW] = useState('');
   const [errDictionaryR, setErrDictionaryR] = useState('');
 
+  const [defaultList, setDefaultList] = useState([
+      {word:"investícia",rating: 100},
+      {word:"ohlásila",rating: 100},
+      {word:"významný",rating: 100},
+      {word:"zahraničný",rating: 100},
+      {word:"projekt",rating: 100},
+      {word:"nový",rating: 100},
+      {word:"investičný",rating: 100},
+      {word:"zámer",rating: 100},
+      {word:"investovať",rating: 100},
+      {word:"rozšírenie",rating: 100},
+      {word:"expanzia",rating: 100},
+      {word:"expandovať",rating: 100},
+      {word:"výroby",rating: 100},
+      {word:"zvýšenie",rating: 100},
+      {word:"výrobná",rating: 100},
+      {word:"kapacitný",rating: 100},
+      {word:"vybudovala",rating: 100},
+      {word:"výstavba",rating: 100},
+      {word:"vstup",rating: 100},
+      {word:"Slovenský",rating: 100},
+      {word:"trh",rating: 100},
+      {word:"akvizícia",rating: 100},
+      {word:"prebieha",rating: 100},
+      {word:"pripravovaná",rating: 100},
+      {word:"kúpa",rating: 100},
+      {word:"spoločnosť",rating: 100},
+      {word:"M&A",rating: 100},
+      {word:"SPV",rating: 100},
+      {word:"zlúčenie",rating: 100},
+      {word:"management",rating: 100},
+      {word:"buy-out",rating: 100},
+      {word:"odkúpi",rating: 100},
+      {word:"akcie",rating: 100},
+      {word:"podiel",rating: 100},
+      {word:"obchodných",rating: 100},
+      {word:"podielov",rating: 100},
+      {word:"emisia",rating: 100},
+      {word:"dlhopisov",rating: 100},
+      {word:"emisia",rating: 100},
+      {word:"fond",rating: 100},
+      {word:"etf",rating: 100},
+      {word:"dlhopis",rating: 100},
+      {word:"cenných",rating: 100},
+      {word:"papierov",rating: 100},
+      {word:"cenný",rating: 100},
+      {word:"papier",rating: 100},
+      {word:"crowdfunding",rating: 100},
+      {word:"reštrukturalizácia",rating: 100},
+      {word:"konkurz",rating: 100}
+      ]);
+
+
+    const loadDictionary = () => {
+        //let mergedList = props.addedWebsites.concat(defaultList);
+        if(!project.dict) {
+            project.dict = [];
+        }
+        const mergedList = project.dict.concat(defaultList);
+        setProject(prevProject => ({
+            ...prevProject,
+            dict: mergedList
+        }));
+    }
+
     const handleRemove = (item) => {
       const updatedDict = project.dict.filter((i) => i.word !== item.word);
       setProject(prevProject => ({
@@ -56,6 +121,7 @@ export default function ShowDictionary({ project, setProject }) {
     };
 
     const handleAdd = (e) => {
+        console.log(project.dict)
         e.preventDefault();
         const validWord = new RegExp(
             '^[a-zA-Z0-9 ]*$'
@@ -93,6 +159,11 @@ export default function ShowDictionary({ project, setProject }) {
 
     return (
         <div>
+            <Box
+                component="form"
+                onSubmit={loadDictionary}
+            >
+            </Box>
             <Grid container spacing={3}>
                 <Grid item md={4} xs={12}>
                     <Typography variant="h6" style={{ fontWeight: 600, marginBottom: 16 }}>
@@ -106,9 +177,7 @@ export default function ShowDictionary({ project, setProject }) {
                         color="buttonLight"
                         variant="contained"
                         sx={{ ml: 2, mr: 2 }}
-                        onClick={() => {
-                            alert('Tu budú predvolené stránky');
-                        }}
+                        onClick={loadDictionary}
                     >
                         Pridaj predvolený slovník
                     </Button>

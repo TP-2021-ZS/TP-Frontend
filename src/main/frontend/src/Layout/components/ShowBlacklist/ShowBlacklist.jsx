@@ -38,6 +38,20 @@ export default function ShowBlacklist({project, setProject}) {
 
     const [websiteForbidden, setWebsiteForbidden] = useState("");
     const [errForbidden, setErrForbidden] = useState('');
+    const [defaultList, setDefaultList] = useState([
+        "https://youtube.com/", "https://facebook.com/", "https://bazos.sk/", "https://nehnutelnosti.sk/", "https://profesia.sk/"]);
+
+    const loadDictionary = () => {
+        if(!project.forbiddenWebpages) {
+            project.forbiddenWebpages = [];
+        }
+        const mergedList = project.forbiddenWebpages.concat(defaultList);
+        setProject(prevProject => ({
+            ...prevProject,
+            forbiddenWebpages: mergedList
+        }));
+    }
+
 
     const handleRemove = (item) => {
       const updatedBlacklist = project.forbiddenWebpages.filter((i) => i !== item);
@@ -72,6 +86,11 @@ export default function ShowBlacklist({project, setProject}) {
 
     return (
         <div>
+            <Box
+                component="form"
+                onSubmit={loadDictionary}
+            >
+            </Box>
             <Grid container spacing={3}>
                 <Grid item md={4} xs={12}>
                     <Typography variant="h6" style={{ fontWeight: 600, marginBottom: 16 }}>
@@ -85,22 +104,9 @@ export default function ShowBlacklist({project, setProject}) {
                         color="buttonLight"
                         variant="contained"
                         sx={{ ml: 2, mr: 2 }}
-                        onClick={() => {
-                            alert('Tu budú predvolené stránky');
-                        }}
+                        onClick={loadDictionary}
                     >
                         Pridaj predvolené stránky
-                    </Button>
-                    <Button
-                        type="button"
-                        color="buttonLight"
-                        variant="contained"
-                        sx={{ ml: 2, mr: 2 }}
-                        onClick={() => {
-                            alert('Tu bude upload');
-                        }}
-                    >
-                        Načítaj súbor
                     </Button>
                 </Grid>
             </Grid>
