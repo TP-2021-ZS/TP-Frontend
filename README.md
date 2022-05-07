@@ -3,13 +3,6 @@ V terminálovom riadku v priečinku TeamProject/src/main/frontend spustiť prík
 Následne spustiť príkaz npm start.
 Frontend beží na: http://localhost:3000/
 
-##Frontend - verzia 1
-Potrebné doinštalovať:
-npm install @mui/material @emotion/react @emotion/styled
-npm install @fontsource/raleway
-npm install @mui/icons-material
-npm install @material-ui/styles
-
 ##Backend
 Backend beží na: http://localhost:8080/
 V application.properties je potrebné nastaviť pripojenie na databázu.
