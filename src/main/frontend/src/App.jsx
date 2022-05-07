@@ -24,7 +24,7 @@ export default () => {
             <Route exact path={routes.dashboard} element={<Dashboard />} />
             <Route exact path={routes.addproject} element={<AddNewProject />} />
             <Route exact path={routes.allprojects} element={<AllProjects />} />
-            <Route exact path={routes.editproject} element={<EditProject />} />
+            <Route exact path={routes.editproject.raw} element={<EditProject />} />
             <Route exact path={routes.accountsettings} element={<AccountSettings />} />
             <Route exact path={routes.help} element={<Help />} />
             <Route exact path={routes.login} element={<>

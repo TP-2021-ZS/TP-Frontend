@@ -84,13 +84,16 @@ const RegistrationPage = () => {
     );
 
     if (validEmail.test(email) && validUsername.test(username) && password.length>=8) {
-      axios.post('/api/registration', null,
+      axios.post('api/registration', null,
           {params: {username: username, password: password, email: email}})
           .then(() => {
             navigate(routes.login)
           })
           .catch(() => {
             setError("Niekde nastala chyba, skúste to znova neskôr.");
+            setE1('');
+            setE2('');
+            setE3('');
           });
     }else{
       setError('');
@@ -149,9 +152,6 @@ const RegistrationPage = () => {
               <Typography component="h1" variant="h5">
                 REGISTRÁCIA
               </Typography>
-
-
-
 
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <Grid container>

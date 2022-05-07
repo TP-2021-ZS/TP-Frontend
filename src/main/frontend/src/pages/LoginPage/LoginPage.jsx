@@ -87,16 +87,6 @@ const LoginPage = () => {
             localStorage.setItem("jwt", jwtToken);
             localStorage.setItem("username", jwtParsed.sub);
             localStorage.setItem("role", jwtParsed.role);
-
-            axios.get('/api/user', {
-              headers: {
-                Authorization: localStorage.getItem("jwt"),
-              }
-            })
-                .then((response) => localStorage.setItem("email",
-                    response.data.email))
-                .catch((error) => console.log(error));
-
             navigate(routes.allprojects);
           } else {
             setError(
@@ -193,7 +183,6 @@ const LoginPage = () => {
                 >
                   PRIHLÁSIŤ SA
                 </Button>
-
 
                 <Grid container>
                   <Grid item>

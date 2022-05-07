@@ -11,6 +11,7 @@ import { TransitionGroup } from 'react-transition-group';
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import {useState} from "react";
 
 
 
@@ -33,28 +34,38 @@ function renderItem({ item, handleRemove }) {
     );
 }
 
-export default function ShowBlacklist(props) {
+export default function ShowBlacklist({project, setProject}) {
 
+    const [websiteForbidden, setWebsiteForbidden] = useState("");
+    const [errForbidden, setErrForbidden] = useState('');
 
     const handleRemove = (item) => {
-        props.setForbiddenList((prev) => [...prev.filter((i) => i !== item)]);
+      const updatedBlacklist = project.forbiddenWebpages.filter((i) => i !== item);
+      setProject(prevProject => ({
+        ...prevProject,
+        forbiddenWebpages: updatedBlacklist
+      }));
     };
 
     const handleAdd = (e) => {
-        console.log(e)
         e.preventDefault();
         const validWebsite = new RegExp(
             'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)'
         );
-        if (validWebsite.test(props.websiteForbidden)) {
-            const nextItem = props.websiteForbidden;
-            if (nextItem) {
-                props.setForbiddenList((prev) => [nextItem, ...prev]);
+        if (validWebsite.test(websiteForbidden)) {
+            if (websiteForbidden) {
+              if(!project.forbiddenWebpages) {
+                project.forbiddenWebpages = [];
+              }
+              setProject(prevProject => ({
+                ...prevProject,
+                forbiddenWebpages: [...project.forbiddenWebpages, websiteForbidden]
+              }));
             }
-            props.setWebsiteForbidden('');
-            props.setErrForbidden('');
+            setWebsiteForbidden('');
+            setErrForbidden('');
         }else{
-            props.setErrForbidden('Webová adresa nie je v správnom formáte (potrebný formát https:// alebo http://)');
+            setErrForbidden('Webová adresa nie je v správnom formáte (potrebný formát https:// alebo http://)');
         }
 
     };
@@ -64,7 +75,7 @@ export default function ShowBlacklist(props) {
             <Grid container spacing={3}>
                 <Grid item md={4} xs={12}>
                     <Typography variant="h6" style={{ fontWeight: 600, marginBottom: 16 }}>
-                        4. Pridať zakázané webstránky
+                        5. Pridať zakázané webstránky
                     </Typography>
                 </Grid>
 
@@ -108,10 +119,10 @@ export default function ShowBlacklist(props) {
                         <TextField
                             id="websiteForbidden"
                             label="Názov webovej stránky"
-                            defaultValue={props.websiteForbidden}
+                            defaultValue={websiteForbidden}
                             fullWidth
-                            value={props.websiteForbidden}
-                            onChange={(e) => props.setWebsiteForbidden(e.target.value)}
+                            value={websiteForbidden}
+                            onChange={(e) => setWebsiteForbidden(e.target.value)}
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
@@ -130,24 +141,26 @@ export default function ShowBlacklist(props) {
                     color="danger.main"
                     sx = {{mt:1, ml:1}}
                 >
-                    {props.errForbidden}
+                    {errForbidden}
                 </Typography>
             </Box>
-            <Box sx={{ mt: 1 }}>
+          {project.forbiddenWebpages && (
+              <Box sx={{ mt: 1 }}>
                 <Grid container spacing={3}>
-                    <Grid item md={9} xs={12}>
-                        <List>
-                            <TransitionGroup>
-                                {props.forbiddenList.map((item) => (
-                                    <Collapse key={item}>
-                                        {renderItem({ item, handleRemove })}
-                                    </Collapse>
-                                ))}
-                            </TransitionGroup>
-                        </List>
-                    </Grid>
+                  <Grid item md={9} xs={12}>
+                    <List>
+                      <TransitionGroup>
+                        {project.forbiddenWebpages.map((item) => (
+                            <Collapse key={item}>
+                              {renderItem({ item, handleRemove })}
+                            </Collapse>
+                        ))}
+                      </TransitionGroup>
+                    </List>
+                  </Grid>
                 </Grid>
-            </Box>
+              </Box>
+          )}
         </div>
     );
 }

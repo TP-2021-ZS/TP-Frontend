@@ -22,9 +22,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class AuthenticationFilter extends OncePerRequestFilter {
 
   @Resource(name = "UserService")
-  private  UserDetailsService userDetailsService;
+  private UserDetailsService userDetailsService;
   @Autowired
-  private  TokenProvider tokenProvider;
+  private TokenProvider tokenProvider;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -33,9 +33,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     String header = request.getHeader("Authorization");
     Authentication authentication = null;
-    if ( header != null && !header.equals("null") ){
+    if (header != null && !header.equals("null")) {
       String authToken = header.replace("Bearer", "");
-      UserDetails userDetails = userDetailsService.loadUserByUsername(tokenProvider.getUsernameFromToken(authToken));
+      UserDetails userDetails = userDetailsService.loadUserByUsername(
+          tokenProvider.getUsernameFromToken(authToken));
       authentication = tokenProvider.getAuthenticationToken(authToken, userDetails);
     }
     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -43,9 +44,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
   }
 
   private void initBeans(HttpServletRequest request) {
-    if (userDetailsService==null) {
+    if (userDetailsService == null) {
       ServletContext servletContext = request.getServletContext();
-      WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+      WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(
+          servletContext);
       userDetailsService = webApplicationContext.getBean(UserDetailServiceImpl.class);
       tokenProvider = webApplicationContext.getBean(TokenProvider.class);
     }

@@ -16,7 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems, secondaryListItems } from '../../Layout/components/LeftNavbar/listItems';
 import Button from "@mui/material/Button";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import {LOGGED, NOT_LOGGED} from "../../constants";
 import AuthorityComponent from "../../components/AuthorityComponent/AuthorityComponent";
@@ -25,6 +25,7 @@ import ProjectTable from "../../Layout/components/ProjectTable/ProjectTable";
 import {Link} from "react-router-dom";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
 
 
@@ -149,18 +150,20 @@ function AllProjectsContent() {
 
     // USERS DATA
     //const [user, setUser] = useState("");
-    const [projects, setProjects] = useState([
-        [1,"Energetika","Aktívny"],
-        [2,"Financovanie","Pozastavený"],
-        [3,"Automobilovy priemysel","Aktívny"],
-        [4,"Všetky oblasti","Aktívny"],
-    ]);
+    const [projects, setProjects] = useState([]);
 
-    //const [projects, setProjects] = useState([]);
+    useEffect(() => {
+      axios.get('/api/projects', {
+        headers: {
+          Authorization: localStorage.getItem("jwt"),
+        }
+      })
+          .then((response) => setProjects(
+              response.data))
+          .catch((error) => console.log(error));
+    },[]);
 
-    const [addedProjects, setAddedProjects] = React.useState(projects.slice());
-
-    if (projects.length > 0){
+    if (projects.length > 0) {
         return (
             <ThemeProvider theme={theme}>
                 <Box sx={{backgroundColor: (theme) =>
@@ -246,7 +249,7 @@ function AllProjectsContent() {
                                         {/* Recent Orders */}
                                         <Grid item xs={12}>
                                             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', minHeight: '84vh' }}>
-                                                <ProjectTable addedProjects={addedProjects} setAddedProjects={setAddedProjects} ></ProjectTable>
+                                                <ProjectTable projects={projects} setProjects={setProjects} />
                                             </Paper>
                                         </Grid>
                                     </Grid>
@@ -255,7 +258,7 @@ function AllProjectsContent() {
                             </Box>
                         </AuthorityComponent>
                         <AuthorityComponent roles={NOT_LOGGED}>
-                            <WelcomeComponet></WelcomeComponet>
+                            <WelcomeComponet/>
                         </AuthorityComponent>
                     </CssBaseline>
                 </Box>
