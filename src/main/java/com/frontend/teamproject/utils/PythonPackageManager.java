@@ -10,6 +10,7 @@ public class PythonPackageManager {
           try {
                this.createFolder(projectName);
           } catch (IOException | InterruptedException e){
+               System.out.println(e.getMessage());
                throw new InterruptedException("Failed to create project's instance.");
           }
      }
@@ -21,11 +22,11 @@ public class PythonPackageManager {
 
           Process process = processBuilder.start();
           process.waitFor();
-
+/*
           processBuilder.command("sh", "-c", String.format("cp -R /opt/py-default /opt/py-instances/%s", fileName));
 
           process = processBuilder.start();
-          process.waitFor();
+          process.waitFor();*/
      }
 
      private void createCronJob(){
