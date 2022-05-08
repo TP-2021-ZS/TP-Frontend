@@ -108,9 +108,9 @@ public class FileService {
       config.setBlacklistUrls(uuid + "/" + forbiddenWebpagesFile);
       config.setKnownUrls(uuid + "/" + webpagesFile);
       config.setKeywordsScoring(uuid + "/" + dictFile);
-      config.setKeywordsSearchTitle(uuid + "/" + dictFile);
+      config.setKeywordsSearchTitle(uuid + "/" + keywordsFile);
       config.setListOfRecipients(emails);
-      config.setKeywordsSearchContent(uuid + "/" + dictFile);
+      config.setKeywordsSearchContent(uuid + "/" + keywordsFile);
       config.setProjectPath(uuid.toString());
       config.setDateAfter(dateAfter);
       writeConfigFile(path, config);
