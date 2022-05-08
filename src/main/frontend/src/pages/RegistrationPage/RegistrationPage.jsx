@@ -91,7 +91,7 @@ const RegistrationPage = () => {
             navigate(routes.login)
           })
           .catch(() => {
-            setError("Niekde nastala chyba, skúste to znova neskôr.");
+            setError("Meno a/alebo email, už existujú.");
             setE1('');
             setE2('');
             setE3('');

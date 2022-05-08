@@ -180,7 +180,7 @@ function AccountSettingsContent() {
             navigate(routes.login);
           })
           .catch(() => {
-            setPasswordMessage("Meno a heslo musia byť unikátne.");
+            setPasswordMessage("Niekde nastala chyba, skúste to znova neskôr.");
           });
     } else {
       setErrPassword('')
