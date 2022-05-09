@@ -40,6 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
+    // Set permissions on endpoints
+    http.authorizeRequests()
+        // Our public endpoints
+        .antMatchers("/api/registration").permitAll()
+        .anyRequest().authenticated();
+
     http.csrf().disable().cors()
         .and()
         //nech sa token vytvara iba na adrese api/login

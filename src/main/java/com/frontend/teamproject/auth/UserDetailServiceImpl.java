@@ -37,13 +37,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
     repository.save(user);
   }
 
-  public ResponseEntity<UserDto> getUser(String username) {
+  public User getUser(String username) {
     User existingUser = repository.findByUsername(username)
         .orElseThrow(() -> new EntityNotFoundException("Používateľ s menom " + username + "neexistuje"));
-    return ResponseEntity.ok(new UserDto(existingUser));
+    return existingUser;
   }
 
-  public ResponseEntity<UserDto> edit(String oldUsername, String username, String email, String passwordEncode) {
+  public User edit(String oldUsername, String username, String email, String passwordEncode) {
     User existingUser = repository.findByUsername(oldUsername)
         .orElseThrow(() -> new EntityNotFoundException("Používateľ s menom " + username + "neexistuje"));
 
@@ -55,8 +55,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
       existingUser.setPassword(passwordEncode);
     }
 
-    final User updatedUser = repository.save(existingUser);
-    return ResponseEntity.ok(new UserDto(updatedUser));
+    return repository.save(existingUser);
   }
 
 

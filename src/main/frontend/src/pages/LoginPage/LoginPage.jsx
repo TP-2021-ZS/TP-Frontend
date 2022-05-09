@@ -15,6 +15,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { ThemeProvider , createTheme } from '@mui/material/styles';
+import obr from './loginimg.png'
 
 function Copyright(props) {
   return (
@@ -87,16 +88,6 @@ const LoginPage = () => {
             localStorage.setItem("jwt", jwtToken);
             localStorage.setItem("username", jwtParsed.sub);
             localStorage.setItem("role", jwtParsed.role);
-
-            axios.get('/api/user', {
-              headers: {
-                Authorization: localStorage.getItem("jwt"),
-              }
-            })
-                .then((response) => localStorage.setItem("email",
-                    response.data.email))
-                .catch((error) => console.log(error));
-
             navigate(routes.allprojects);
           } else {
             setError(
@@ -118,7 +109,7 @@ const LoginPage = () => {
               sm={4}
               md={7}
               sx={{
-                backgroundImage: 'url(https://source.unsplash.com/random)',
+                backgroundImage: `url(${obr})`,
                 backgroundRepeat: 'no-repeat',
                 //backgroundColor: (t) =>
                 //    t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -193,7 +184,6 @@ const LoginPage = () => {
                 >
                   PRIHLÁSIŤ SA
                 </Button>
-
 
                 <Grid container>
                   <Grid item>

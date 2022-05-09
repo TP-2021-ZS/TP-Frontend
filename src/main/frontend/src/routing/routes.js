@@ -6,6 +6,9 @@ export default {
   accountsettings: '/accountsettings',
   addproject: '/addproject',
   allprojects: '/allprojects',
-  editproject: '/editproject',
+  editproject: {
+    raw: '/editproject/:id',
+    withId: (id) => ('/editproject/' + id)
+  },
   help: 'help',
 };

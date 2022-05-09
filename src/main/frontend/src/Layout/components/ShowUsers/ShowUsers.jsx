@@ -11,6 +11,7 @@ import { TransitionGroup } from 'react-transition-group';
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import {useState} from "react";
 
  
 function renderItem({ item, handleRemove }) {
@@ -32,29 +33,39 @@ function renderItem({ item, handleRemove }) {
     );
 }
 
-export default function ShowUsers(props) {
+export default function ShowUsers({ project, setProject }) {
+  const [user, setUser] = useState("");
+  const [errUser, setErrUser] = useState('');
     
     const handleRemove = (item) => {
-        props.setAddedEmails((prev) => [...prev.filter((i) => i !== item)]);
+      const updatedUsers = project.usersEmail.filter((i) => i !== item);
+      setProject(prevProject => ({
+        ...prevProject,
+        usersEmail: updatedUsers
+      }));
     };
 
     const handleAdd = (e) => {
-        console.log(e)
         e.preventDefault();
         const validEmail = new RegExp(
             '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
         );
-        if (validEmail.test(props.user)) {
-            const nextHiddenItem = props.user;
-            if (nextHiddenItem) {
-                props.setAddedEmails((prev) => [nextHiddenItem, ...prev]);
+        if (validEmail.test(user)) {
+           if (user) {
+             if(!project.usersEmail) {
+               project.usersEmail = [];
+             }
+               setProject(prevProject => ({
+                 ...prevProject,
+                 usersEmail: [...project.usersEmail, user]
+               }));
             }
-            props.setUser('');
-            props.setErrUser('');
+            setUser('');
+            setErrUser('');
 
         }
         else{
-            props.setErrUser('E-mailová adresa nie je v správnom formáte');
+            setErrUser('E-mailová adresa nie je v správnom formáte');
         }
     };
 
@@ -63,7 +74,7 @@ export default function ShowUsers(props) {
             <Grid container spacing={3}>
                 <Grid item md={4} xs={12}>
                     <Typography variant="h6" style={{ fontWeight: 600, marginBottom: 16 }}>
-                        3. Pridať používateľov
+                        4. Pridať používateľov
                     </Typography>
                 </Grid>
             </Grid>
@@ -83,10 +94,10 @@ export default function ShowUsers(props) {
                             id="user"
                             type="email"
                             label="E-mailová adresa používateľa"
-                            defaultValue={props.user}
+                            defaultValue={user}
                             fullWidth
-                            value={props.user}
-                            onChange={(e) => props.setUser(e.target.value)}
+                            value={user}
+                            onChange={(e) => setUser(e.target.value)}
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
@@ -106,24 +117,27 @@ export default function ShowUsers(props) {
                     color="danger.main"
                     sx = {{ mt: 1, ml: 1}}
                 >
-                    {props.errUser}
+                    {errUser}
                 </Typography>
             </Box>
-            <Box sx={{ mt: 1 }}>
+          {project.usersEmail && (
+              <Box sx={{ mt: 1 }}>
                 <Grid container spacing={3}>
-                    <Grid item md={9} xs={12}>
-                        <List>
-                            <TransitionGroup>
-                                {props.addedEmails.map((item) => (
-                                    <Collapse key={item}>
-                                        {renderItem({ item, handleRemove })}
-                                    </Collapse>
-                                ))}
-                            </TransitionGroup>
-                        </List>
-                    </Grid>
+                  <Grid item md={9} xs={12}>
+                    <List>
+                      <TransitionGroup>
+                        {project.usersEmail.map((item) => (
+                            <Collapse key={item}>
+                              {renderItem({ item, handleRemove })}
+                            </Collapse>
+                        ))}
+                      </TransitionGroup>
+                    </List>
+                  </Grid>
                 </Grid>
-            </Box>
+              </Box>
+          )}
+
         </div>
     );
 }

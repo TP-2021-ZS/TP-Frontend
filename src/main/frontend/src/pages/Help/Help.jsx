@@ -285,7 +285,8 @@ function HelpContent() {
                                                 color="inherit"
                                                 mt={2}
                                             >
-                                                Zoznam slov alebo slovných spojení, ktoré si želáte prehľadávať v článkoch. Každé slovné spojenie musí mať pridelený rating (dôležitosť vrámci vyhľadávania).
+                                                Zoznam slov alebo slovných spojení, ktoré si želáte prehľadávať v článkoch. Zoznam môžete vytvoriť pridávaním slovných spojení a ratingov, alebo načítaním pripraveného zoznamu. Každé slovné spojenie musí mať pridelený rating (dôležitosť vrámci vyhľadávania).
+                                                Odporúčame zo začiatku nastaviť rating na hodnotu 100 pre všetky slovné spojenia.
                                             </Typography>
                                             <Typography
                                                 variant="body2"

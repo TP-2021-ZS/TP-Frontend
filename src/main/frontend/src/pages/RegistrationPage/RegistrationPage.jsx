@@ -13,6 +13,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { ThemeProvider , createTheme } from '@mui/material/styles';
+import obr from './registrationimg.png'
 
 function Copyright(props) {
   return (
@@ -84,13 +85,16 @@ const RegistrationPage = () => {
     );
 
     if (validEmail.test(email) && validUsername.test(username) && password.length>=8) {
-      axios.post('/api/registration', null,
+      axios.post('api/registration', null,
           {params: {username: username, password: password, email: email}})
           .then(() => {
             navigate(routes.login)
           })
           .catch(() => {
-            setError("Niekde nastala chyba, skúste to znova neskôr.");
+            setError("Meno a/alebo email, už existujú.");
+            setE1('');
+            setE2('');
+            setE3('');
           });
     }else{
       setError('');
@@ -124,7 +128,7 @@ const RegistrationPage = () => {
               sm={4}
               md={7}
               sx={{
-                backgroundImage: 'url(https://source.unsplash.com/random)',
+                backgroundImage: `url(${obr})`,
                 backgroundRepeat: 'no-repeat',
                 //backgroundColor: (t) =>
                 //    t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -149,9 +153,6 @@ const RegistrationPage = () => {
               <Typography component="h1" variant="h5">
                 REGISTRÁCIA
               </Typography>
-
-
-
 
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <Grid container>
