@@ -22,7 +22,7 @@ import {
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import {LOGGED, NOT_LOGGED} from "../../constants";
+import {LOGGED, NOT_LOGGED, BE_SERVER} from "../../constants";
 import AuthorityComponent
   from "../../components/AuthorityComponent/AuthorityComponent";
 import WelcomeComponet from "../../Layout/components/Welcome/WelcomeComponent";
@@ -169,7 +169,7 @@ function AccountSettingsContent() {
     e.preventDefault();
 
     if (password === password2 && password.length >= 8) {
-      axios.put('/api/user', null,
+      axios.put(`${BE_SERVER}/api/user`, null,
           {
             headers: {
               Authorization: localStorage.getItem("jwt"),

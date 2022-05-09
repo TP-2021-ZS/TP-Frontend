@@ -14,6 +14,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { ThemeProvider , createTheme } from '@mui/material/styles';
 import obr from './registrationimg.png'
+import {BE_SERVER} from "../../constants";
 
 function Copyright(props) {
   return (
@@ -85,7 +86,7 @@ const RegistrationPage = () => {
     );
 
     if (validEmail.test(email) && validUsername.test(username) && password.length>=8) {
-      axios.post('http://147.175.121.149:8080/TeamProject-1.0/api/registration', null,
+      axios.post(`${BE_SERVER}/api/registration`, null,
           {params: {username: username, password: password, email: email}})
           .then(() => {
             navigate(routes.login)

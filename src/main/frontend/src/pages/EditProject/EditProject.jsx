@@ -42,6 +42,7 @@ import {useNavigate, useParams} from "react-router";
 import axios from "axios";
 import routes from "../../routing/routes";
 import ShowKeywords from "../../Layout/components/ShowKeywords/ShowKeywords";
+import {BE_SERVER} from "../../constants";
 
 const drawerWidth = 240;
 
@@ -164,7 +165,7 @@ export default function EditProject() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/projects/' + id, {
+    axios.get(`${BE_SERVER}/api/projects` + id, {
       headers: {
         Authorization: localStorage.getItem("jwt"),
       }
@@ -205,7 +206,7 @@ export default function EditProject() {
       bodyFormData.append('dict[' + index + '].rating', item.rating);
     });
 
-    axios.put('/api/project/' + id, bodyFormData, {headers: {
+    axios.put(`${BE_SERVER}/api/project` + id, bodyFormData, {headers: {
         Authorization: localStorage.getItem("jwt"),
       }})
         .then(() => {

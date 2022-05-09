@@ -28,7 +28,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ShowBlacklist from "../../Layout/components/ShowBlacklist/ShowBlacklist";
 import ShowAdditionalSettings
   from "../../Layout/components/ShowAdditionalSettings/ShowAdditionalSettings";
-import {LOGGED, NOT_LOGGED} from "../../constants";
+import {BE_SERVER, LOGGED, NOT_LOGGED} from "../../constants";
 import AuthorityComponent
   from "../../components/AuthorityComponent/AuthorityComponent";
 import WelcomeComponet from "../../Layout/components/Welcome/WelcomeComponent";
@@ -204,7 +204,7 @@ function AddNewProjectContent() {
       bodyFormData.append('dict[' + index + '].rating', item.rating);
     });
 
-    axios.post('/api/project', bodyFormData, {
+    axios.post(`${BE_SERVER}/api/project`, bodyFormData, {
       headers: {
         Authorization: localStorage.getItem("jwt"),
       }

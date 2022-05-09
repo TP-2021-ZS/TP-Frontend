@@ -18,7 +18,7 @@ import { mainListItems, secondaryListItems } from '../../Layout/components/LeftN
 import Button from "@mui/material/Button";
 import {useEffect, useState} from "react";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import {LOGGED, NOT_LOGGED} from "../../constants";
+import {BE_SERVER, LOGGED, NOT_LOGGED} from "../../constants";
 import AuthorityComponent from "../../components/AuthorityComponent/AuthorityComponent";
 import WelcomeComponet from "../../Layout/components/Welcome/WelcomeComponent";
 import ProjectTable from "../../Layout/components/ProjectTable/ProjectTable";
@@ -153,7 +153,7 @@ function AllProjectsContent() {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-      axios.get('/api/projects', {
+      axios.get(`${BE_SERVER}/api/projects`, {
         headers: {
           Authorization: localStorage.getItem("jwt"),
         }

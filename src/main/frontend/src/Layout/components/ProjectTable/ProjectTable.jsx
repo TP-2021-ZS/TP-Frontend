@@ -15,6 +15,7 @@ import {createTheme} from "@mui/material/styles";
 import {useNavigate} from "react-router";
 import routes from "../../../routing/routes";
 import axios from "axios";
+import {BE_SERVER} from "../../../constants";
 
 export default function ProjectTable({projects, setProjects}) {
   const theme = createTheme({
@@ -75,7 +76,7 @@ export default function ProjectTable({projects, setProjects}) {
   });
 
   const handleRemove = (item) => {
-    axios.delete('/api/projects/' + item.id, {
+    axios.delete(`${BE_SERVER}/api/projects/` + item.id, {
       headers: {
         Authorization: localStorage.getItem("jwt"),
       }
