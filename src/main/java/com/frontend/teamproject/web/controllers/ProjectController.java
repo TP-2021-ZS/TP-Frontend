@@ -43,7 +43,7 @@ public class ProjectController {
 
   @PostMapping(value = "/api/project")
   public ResponseEntity<UUID> createProject(@Valid ProjectDto projectDto,
-      BindingResult bindingResult) {
+      BindingResult bindingResult) throws InterruptedException {
     if (bindingResult.hasErrors()) {
       logger.debug("Validation errors found");
       throw new ValidationException("Zadané parametre nie sú validné.");
