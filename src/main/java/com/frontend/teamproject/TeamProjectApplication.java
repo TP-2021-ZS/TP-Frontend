@@ -10,5 +10,4 @@ public class TeamProjectApplication extends SpringBootServletInitializer {
   public static void main(String[] args) {
     SpringApplication.run(TeamProjectApplication.class, args);
   }
-
 }
