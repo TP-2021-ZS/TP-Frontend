@@ -27,6 +27,18 @@ public class PythonPackageManager {
         }
     }
 
+    public void toggleProject(String projectName, boolean active) throws InterruptedException {
+        try {
+            if (active) {
+                this.createCronJob(projectName);
+            } else {
+                this.deleteCronJob(projectName);
+            }
+        } catch (IOException | InterruptedException e){
+            throw new InterruptedException("Failed to delete project's instance: " + e.getMessage());
+        }
+    }
+
     private void createFolder(String projectName) throws IOException, InterruptedException {
         this.executeBashCommand(
                 "cp -R /opt/py-default /opt/py-instances/%s",

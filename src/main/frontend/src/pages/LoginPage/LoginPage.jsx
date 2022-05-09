@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { ThemeProvider , createTheme } from '@mui/material/styles';
 import obr from './loginimg.png'
+import {BE_SERVER} from "../../constants";
 
 function Copyright(props) {
   return (
@@ -76,7 +77,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/api/login", {
+    fetch(`${BE_SERVER}/api/login`, {
       method: 'POST',
       body: JSON.stringify({username: username, password: password})
     })

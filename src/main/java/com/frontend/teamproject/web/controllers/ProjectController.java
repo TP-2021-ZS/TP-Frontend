@@ -58,7 +58,8 @@ public class ProjectController {
   public void editProject(
       @PathVariable("id") String id,
       @Valid ProjectDto projectDto,
-      BindingResult bindingResult) {
+      BindingResult bindingResult
+  ) throws InterruptedException {
     if (bindingResult.hasErrors()) {
       logger.debug("Validation errors found");
       throw new ValidationException("Zadané parametre nie sú validné.");

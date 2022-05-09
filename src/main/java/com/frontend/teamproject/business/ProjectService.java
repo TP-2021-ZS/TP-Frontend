@@ -49,7 +49,7 @@ public class ProjectService {
     return uuid;
   }
 
-  public void editProject(ProjectDto dto, String id) throws EntityNotFoundException {
+  public void editProject(ProjectDto dto, String id) throws EntityNotFoundException, InterruptedException {
     Authentication authorization = SecurityContextHolder.getContext().getAuthentication();
     Optional<Project> projectOptional = repository.findByUuidAndUserUsername(UUID.fromString(id), authorization.getName());
     if (projectOptional.isEmpty()) {
@@ -58,6 +58,8 @@ public class ProjectService {
     Project project = projectOptional.get();
     project.setActive(dto.isActive());
     project.setTitle(dto.getTitle());
+
+    this.pythonPackageManager.toggleProject(id, dto.isActive());
 
     UUID uuid = repository.save(project).getUuid();
     fileService.writeToFileSystem(dto, uuid);
