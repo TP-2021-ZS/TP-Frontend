@@ -165,7 +165,7 @@ export default function EditProject() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${BE_SERVER}/api/projects` + id, {
+    axios.get(`${BE_SERVER}/api/projects/` + id, {
       headers: {
         Authorization: localStorage.getItem("jwt"),
       }
