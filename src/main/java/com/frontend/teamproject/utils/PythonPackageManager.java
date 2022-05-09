@@ -7,10 +7,12 @@ import java.io.IOException;
 
 @Component
 public class PythonPackageManager {
-    public void createNewProject(String projectName) throws InterruptedException{
+    public void createNewProject(String projectName, boolean enabled) throws InterruptedException{
         try {
             this.createFolder(projectName);
-            this.createCronJob(projectName);
+            if (enabled) {
+                this.createCronJob(projectName);
+            }
         } catch (IOException | InterruptedException e){
             throw new InterruptedException("Failed to delete project's instance: " + e.getMessage());
         }

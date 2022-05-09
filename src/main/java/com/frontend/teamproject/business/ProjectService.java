@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
+
+import com.frontend.teamproject.utils.PythonPackageManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectService {
 
+  @Autowired
+  private PythonPackageManager pythonPackageManager;
   private final ProjectRepository repository;
   private final FileService fileService;
   private final UserDetailServiceImpl userService;
@@ -30,7 +35,7 @@ public class ProjectService {
     this.userService = userService;
   }
 
-  public UUID createProject(ProjectDto dto) {
+  public UUID createProject(ProjectDto dto) throws InterruptedException{
     Authentication authorization = SecurityContextHolder.getContext().getAuthentication();
     User user  = userService.getUser(authorization.getName());
     Project project = new Project();
@@ -38,7 +43,8 @@ public class ProjectService {
     project.setTitle(dto.getTitle());
     project.setUser(user);
     UUID uuid = repository.save(project).getUuid();
-    fileService.mkDir(uuid);
+    //fileService.mkDir(uuid);
+    this.pythonPackageManager.createNewProject(uuid.toString(), dto.isActive());
     fileService.writeToFileSystem(dto, uuid);
     return uuid;
   }

@@ -41,4 +41,9 @@ public class CustomExceptionHandler {
   public final ResponseEntity<ExceptionResponse> handleException(ValidationException ex) {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(HttpStatus.BAD_REQUEST, ex.getMessage()));
   }
+
+  @ExceptionHandler({InterruptedException.class})
+  public final ResponseEntity<ExceptionResponse> handleException(InterruptedException ex) {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
+  }
 }
