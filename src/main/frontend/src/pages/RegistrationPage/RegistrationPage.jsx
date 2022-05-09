@@ -85,7 +85,7 @@ const RegistrationPage = () => {
     );
 
     if (validEmail.test(email) && validUsername.test(username) && password.length>=8) {
-      axios.post('api/registration', null,
+      axios.post('http://147.175.121.149:8080/TeamProject-1.0/api/registration', null,
           {params: {username: username, password: password, email: email}})
           .then(() => {
             navigate(routes.login)
