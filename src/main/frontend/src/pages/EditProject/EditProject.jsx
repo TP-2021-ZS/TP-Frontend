@@ -206,7 +206,7 @@ export default function EditProject() {
       bodyFormData.append('dict[' + index + '].rating', item.rating);
     });
 
-    axios.put(`${BE_SERVER}/api/project` + id, bodyFormData, {headers: {
+    axios.put(`${BE_SERVER}/api/project/${id}`, bodyFormData, {headers: {
         Authorization: localStorage.getItem("jwt"),
       }})
         .then(() => {

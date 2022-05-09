@@ -1,16 +1,19 @@
 package com.frontend.teamproject.domain.classes;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import java.util.UUID;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Project {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  @Type(type = "uuid-char")
+  @Column(name = "uuid", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
   private UUID uuid;
   private String title;
   private boolean active;
