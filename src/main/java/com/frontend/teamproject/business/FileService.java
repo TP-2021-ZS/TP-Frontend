@@ -6,25 +6,20 @@ import com.frontend.teamproject.domain.classes.ConfigFile;
 import com.frontend.teamproject.domain.classes.DateAfterEnum;
 import com.frontend.teamproject.domain.dto.DictionaryItemDto;
 import com.frontend.teamproject.domain.dto.ProjectDto;
-import com.mysql.cj.log.Log;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 @Service
 public class FileService {
@@ -105,13 +100,13 @@ public class FileService {
 
     try {
       ConfigFile config = new ConfigFile();
-      config.setBlacklistUrls(uuid + "/" + forbiddenWebpagesFile);
-      config.setKnownUrls(uuid + "/" + webpagesFile);
-      config.setKeywordsScoring(uuid + "/" + dictFile);
-      config.setKeywordsSearchTitle(uuid + "/" + keywordsFile);
+      config.setBlacklistUrls(homeDir + uuid + "/" + forbiddenWebpagesFile);
+      config.setKnownUrls(homeDir + uuid + "/" + webpagesFile);
+      config.setKeywordsScoring(homeDir + uuid + "/" + dictFile);
+      config.setKeywordsSearchTitle(homeDir + uuid + "/" + keywordsFile);
       config.setListOfRecipients(emails);
-      config.setKeywordsSearchContent(uuid + "/" + keywordsFile);
-      config.setProjectPath(uuid.toString());
+      config.setKeywordsSearchContent(homeDir + uuid + "/" + keywordsFile);
+      config.setProjectPath(homeDir + uuid.toString() + "/");
       config.setDateAfter(dateAfter);
       writeConfigFile(path, config);
     } catch (IOException ex) {

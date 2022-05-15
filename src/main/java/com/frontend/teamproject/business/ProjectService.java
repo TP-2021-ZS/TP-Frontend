@@ -5,17 +5,16 @@ import com.frontend.teamproject.domain.classes.Project;
 import com.frontend.teamproject.domain.classes.User;
 import com.frontend.teamproject.domain.dto.ProjectDto;
 import com.frontend.teamproject.domain.repositories.ProjectRepository;
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-
 import com.frontend.teamproject.utils.PythonPackageManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProjectService {
@@ -44,7 +43,7 @@ public class ProjectService {
     project.setUser(user);
     UUID uuid = repository.save(project).getUuid();
     //fileService.mkDir(uuid);
-    this.pythonPackageManager.createNewProject(uuid.toString(), dto.isActive());
+    this.pythonPackageManager.createNewProject(uuid.toString(), dto.isActive(), dto.getDateAfter());
     fileService.writeToFileSystem(dto, uuid);
     return uuid;
   }
@@ -59,16 +58,17 @@ public class ProjectService {
     project.setActive(dto.isActive());
     project.setTitle(dto.getTitle());
 
-    this.pythonPackageManager.toggleProject(id, dto.isActive());
+    this.pythonPackageManager.toggleProject(id, dto.isActive(), dto.getDateAfter());
 
     UUID uuid = repository.save(project).getUuid();
     fileService.writeToFileSystem(dto, uuid);
   }
 
-  public void deleteProject(String id) throws IOException {
+  public void deleteProject(String id) throws InterruptedException {
     Authentication authorization = SecurityContextHolder.getContext().getAuthentication();
     repository.deleteByUuidAndUserUsername(UUID.fromString(id), authorization.getName());
-    fileService.deleteFiles(id);
+    this.pythonPackageManager.deleteProject(id);
+    //fileService.deleteFiles(id);
   }
 
   public Optional<List<Project>> getAllProjects() {

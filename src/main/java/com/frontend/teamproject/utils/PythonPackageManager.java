@@ -1,5 +1,6 @@
 package com.frontend.teamproject.utils;
 
+import com.frontend.teamproject.domain.classes.DateAfterEnum;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -7,13 +8,13 @@ import java.io.IOException;
 
 @Component
 public class PythonPackageManager {
-    public void createNewProject(String projectName, boolean enabled) throws InterruptedException{
+    public void createNewProject(String projectName, boolean enabled, DateAfterEnum dateAfterEnum) throws InterruptedException {
         try {
             this.createFolder(projectName);
             if (enabled) {
-                this.createCronJob(projectName);
+                this.createCronJob(projectName, dateAfterEnum);
             }
-        } catch (IOException | InterruptedException e){
+        } catch (IOException | InterruptedException e) {
             throw new InterruptedException("Failed to delete project's instance: " + e.getMessage());
         }
     }
@@ -27,14 +28,14 @@ public class PythonPackageManager {
         }
     }
 
-    public void toggleProject(String projectName, boolean active) throws InterruptedException {
+    public void toggleProject(String projectName, boolean active, DateAfterEnum dateAfter) throws InterruptedException {
         try {
             if (active) {
-                this.createCronJob(projectName);
+                this.createCronJob(projectName, dateAfter);
             } else {
                 this.deleteCronJob(projectName);
             }
-        } catch (IOException | InterruptedException e){
+        } catch (IOException | InterruptedException e) {
             throw new InterruptedException("Failed to delete project's instance: " + e.getMessage());
         }
     }
@@ -46,16 +47,17 @@ public class PythonPackageManager {
         );
     }
 
-    private void createCronJob(String projectName) throws IOException, InterruptedException {
+    private void createCronJob(String projectName, DateAfterEnum date) throws IOException, InterruptedException {
         this.executeBashCommand(
-                "(crontab -l ; echo \"45 * * * * cd /opt/py-instances/%s && python3 main.py\") | crontab -",
+                "(crontab -l ; echo \"%s cd /opt/py-instances/%s && python3 main.py\") | crontab -",
+                this.translateDateToCronFrequency(date),
                 projectName
         );
     }
 
     private void deleteFolder(String projectName) throws IOException, InterruptedException{
         this.executeBashCommand(
-                "rm -R /opt/py-instances/%s",
+                "rm -r /opt/py-instances/%s",
                 projectName
         );
     }
@@ -81,5 +83,27 @@ public class PythonPackageManager {
 
         Process process = processBuilder.start();
         process.waitFor();
+    }
+
+    private String translateDateToCronFrequency(DateAfterEnum date) {
+        String frequency;
+        switch (date) {
+            case ALL:
+                frequency = "0 * * * *";
+                break;
+            case WEEK:
+                frequency = "0 0 * * 1";
+                break;
+            case MONTH:
+                frequency = "0 0 1 * *";
+                break;
+            case YEAR:
+                frequency = "0 0 0 1 *";
+                break;
+            default:
+                frequency = "0 0 * * *";
+                break;
+        }
+        return frequency;
     }
 }

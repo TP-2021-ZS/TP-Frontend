@@ -5,27 +5,18 @@ import com.frontend.teamproject.domain.classes.Project;
 import com.frontend.teamproject.domain.dto.ProjectDto;
 import com.frontend.teamproject.domain.dto.ProjectListItemDto;
 import com.frontend.teamproject.web.mappers.ProjectMapper;
-import java.io.IOException;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-import javax.validation.ValidationException;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class ProjectController {
@@ -94,7 +85,7 @@ public class ProjectController {
 
   @DeleteMapping(value = "/api/projects/{id}")
   public ResponseEntity<?> deleteProject(@PathVariable("id") String id)
-      throws IOException {
+          throws InterruptedException {
     logger.info("Deleting project with id: {}.", id);
     service.deleteProject(id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).body(Optional.empty());
